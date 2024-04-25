@@ -21,7 +21,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 class DBStorage:
-    """interaacts with the MySQL database"""
+    """interacts with the MySQL database"""
     __engine = None
     __session = None
 
@@ -43,7 +43,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session"""
         new_dict = {}
-        for clss in classes:
+        for cls in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
@@ -74,3 +74,37 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+        Retrieve one object by its ID.
+        
+        Args:
+            cls: Class of the object.
+            id: ID of the object.
+        
+        Returns:
+            Object based on the class and its ID, or None if not found.
+        """
+        # Your implementation to retrieve object from database
+        # Example:
+        obj = db_session.query(cls).get(id)
+        return obj
+
+
+    def count(self, cls=None):
+        """
+        Count the number of objects in storage.
+        
+        Args:
+            cls: Class of the objects to count (optional).
+        
+        Returns:
+            Number of objects in storage matching the given class.
+            If no class is passed, returns the count of all objects in storage.
+        """
+        if cls:
+            return db_session.query(cls).count()
+        else:
+            return db_session.query().count()
+

@@ -1,3 +1,26 @@
+# AirBnB_clone_v3
+
+Welcome to our AirBnB_clone_v3! This repository is dedicated to creating robust APIs using the Flask framework. We're excited to share our progress and contributions with you.
+
+## Authors
+- Fatoki Olaitan (Nigeria)
+- Sara BouBou (Morocco)
+
+## About
+Our project revolves around harnessing the power of Flask to build efficient and scalable APIs. Flask provides us with a lightweight and flexible framework that allows us to create web services with ease. 
+
+## New Contributions
+We're thrilled to introduce our latest contributions to this project:
+
+- Integration of Flask framework for API development.
+- Addition of new endpoints for enhanced functionality.
+- Implementation of best practices for Flask API development.
+- Improved documentation for better understanding and usability.
+
+## Getting Started
+To begin working with our Flask API project, follow these simple steps:
+
+
 # AirBnB Clone - The Console
 The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
 

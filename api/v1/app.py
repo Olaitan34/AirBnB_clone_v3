@@ -32,14 +32,14 @@ def handle_404(exception):
     handles 404 error
     :return: returns 404 json
     """
-    data = {
+    dt = {
         "error": "Not found"
     }
 
-    resp = jsonify(data)
-    resp.status_code = 404
+    res = jsonify(dt)
+    res.status_code = 404
 
-    return(resp)
+    return(res)
 
 if __name__ == "__main__":
     app.run(getenv("HBNB_API_HOST"), getenv("HBNB_API_PORT"))

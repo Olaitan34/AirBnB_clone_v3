@@ -1,14 +1,34 @@
+#!/usr/bin/python3
+""" Module containing views """
 from api.v1.views import app_views
-from models.engine.db_storage import count as cnt
-# Importing the app_views module from api.v1.views
+from flask import jsonify
+from models import storage
 
-# Define a route /status on the app_views object
-@app_views.route('/status')
+
+@app_views.route("/status", methods=["GET"],  strict_slashes=False)
 def status():
-    # Return a JSON response with status "OK"
-    return Jsonify({'status':'ok'})
+    """ returns a JSON """
+    data = {"status": "OK"}
+    
+    resp = jsonify(data)
+    resp.status_code = 200
 
-@app_views.route('/api/v1/stats')
+    return resp
+
+
+@app_views.route("/stats", methods=["GET"], strict_slashes=False)
 def stats():
-    # Return a cnt which is the representative of count
-    return cnt
+    """ retrieves the number of each objects by type """
+    data = {
+        "amenities": storage.count("Amenity"),
+        "cities": storage.count("City"),
+        "places": storage.count("Place"),
+        "reviews": storage.count("Review"),
+        "states": storage.count("State"),
+        "users": storage.count("User"),
+    }
+
+    resp = jsonify(data)
+    resp.status_code = 200
+
+    return resp

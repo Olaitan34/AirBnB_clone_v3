@@ -67,6 +67,18 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+        # Assuming db_session and cls are properly defined for testing
+    def test_db_storage_get_existing_object(self):
+        # Assuming id of existing object is 1
+        obj = DBStorage().get(cls, 1)
+        assert obj is not None
+
+    def test_db_storage_get_non_existing_object(self):
+        # Assuming id of non-existing object is -1
+        obj = DBStorage().get(cls, -1)
+        assert obj is None
+
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""

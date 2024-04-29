@@ -40,6 +40,30 @@ class FileStorage:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
 
+    def get(self, cls, id):
+        """
+        gets specific object
+        :param cls: class
+        :param id: id of instance
+        :return: object or None
+        """
+        all_class = self.all(cls)
+
+        for obj in all_class.values():
+            if id == str(obj.id):
+                return obj
+
+        return None
+
+    def count(self, cls=None):
+        """
+        count of instances
+        :param cls: class
+        :return: number of instances
+        """
+
+        return len(self.all(cls))
+
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
@@ -68,39 +92,3 @@ class FileStorage:
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
-
-    class FileStorage:
-    def get(self, cls, id):
-        """
-        Retrieve one object by its ID.
-        
-        Args:
-            cls: Class of the object.
-            id: ID of the object.
-        
-        Returns:
-            Object based on the class and its ID, or None if not found.
-        """
-        # Your implementation to retrieve object from file
-        # Example:
-        objects = self.all(cls)
-        for obj in objects.values():
-            if obj.id == id:
-                return obj
-        return None
-
-    def count(self, cls=None):
-        """
-        Count the number of objects in storage.
-        
-        Args:
-            cls: Class of the objects to count (optional).
-        
-        Returns:
-            Number of objects in storage matching the given class.
-            If no class is passed, returns the count of all objects in storage.
-        """
-        if cls:
-            return len(self.all(cls))
-        else:
-            return len(self.all())

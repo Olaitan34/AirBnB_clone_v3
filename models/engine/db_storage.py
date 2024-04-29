@@ -21,7 +21,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 class DBStorage:
-    """interacts with the MySQL database"""
+    """interaacts with the MySQL database"""
     __engine = None
     __session = None
 
@@ -43,7 +43,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session"""
         new_dict = {}
-        for cls in classes:
+        for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
@@ -57,6 +57,33 @@ class DBStorage:
 
     def save(self):
         """commit all changes of the current database session"""
+        self.__session.commit()
+
+    def get(self, cls, id):
+        """
+        fetches specific object
+        :param cls: class of object as string
+        :param id: id of object as string
+        :return: found object or None
+        """
+        all_class = self.all(cls)
+
+        for obj in all_class.values():
+            if id == str(obj.id):
+                return obj
+
+        return None
+
+    def count(self, cls=None):
+        """
+        count of how many instances of a class
+        :param cls: class name
+        :return: count of instances of a class
+        """
+        return len(self.all(cls))
+
+    def save(self):
+        """ commits all changes of current database session """
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -74,36 +101,3 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
-
-    def get(self, cls, id):
-        """
-        Retrieve one object by its ID.
-        
-        Args:
-            cls: Class of the object.
-            id: ID of the object.
-        
-        Returns:
-            Object based on the class and its ID, or None if not found.
-        """
-        # Your implementation to retrieve object from database
-        # Example:
-        obj = db_session.query(cls).get(id)
-        return obj
-
-
-     def count(self, cls=None):
-        """
-        count the number of objects in storage
-        """
-        all_cls = classes.values()
-
-        if not cls:
-            count = 0
-            for clas in all_cls:
-                count += len(models.storage.all(cls).values())
-        else:
-            count = len(models.storage.all(cls).values())
-
-        return count
-
